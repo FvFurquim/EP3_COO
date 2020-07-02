@@ -174,8 +174,8 @@ public class GeradorDeRelatorios {
 
 		gdr = new GeradorDeRelatorios(produtos, FORMATO_PADRAO | FORMATO_NEGRITO |  FORMATO_ITALICO);
 		
-		ComportamentoDeCriterio pc = new PrecoCresc();
-		ComportamentoDeOrdenacao is = new InsertionSort();
+		ComportamentoDeCriterio pc = new CriterioPrecoCresc();
+		ComportamentoDeOrdenacao is = new OrdenacaoInsertionSort();
 		ComportamentoDeFiltro fc = new FiltroCategoriaIgual("Livros");
 
 		gdr.setOrdenacao(is);
