@@ -1,5 +1,9 @@
 import java.io.PrintWriter;
 import java.io.IOException;
+import formatacao.BoldDecorator;
+import formatacao.DataSource;
+import formatacao.ItalicoDecorator;
+import formatacao.StringDataSourse;
 
 public class GeradorDeRelatorios {
 
@@ -198,30 +202,20 @@ public class GeradorDeRelatorios {
 			}
 
 			if(selecionado){
-
+				DataSource frase = new StringDataSourse(p.formataParaImpressao());
 				out.print("<li>");
 
 				if((format_flags & FORMATO_ITALICO) > 0){
 
-					out.print("<span style=\"font-style:italic\">");
+					frase = new ItalicoDecorator(frase);
 				}
 
 				if((format_flags & FORMATO_NEGRITO) > 0){
 
-					out.print("<span style=\"font-weight:bold\">");
-				} 
-			
-				out.print(p.formataParaImpressao());
-
-				if((format_flags & FORMATO_NEGRITO) > 0){
-
-					out.print("</span>");
-				} 
-
-				if((format_flags & FORMATO_ITALICO) > 0){
-
-					out.print("</span>");
+					frase = new BoldDecorator(frase);
 				}
+
+				out.println(frase.formata());
 
 				out.println("</li>");
 				count++;
