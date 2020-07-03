@@ -1,3 +1,3 @@
 # EP3_COO
-Adicionar os padrões Strategy e Decorator
-<br>Já mudo o Readme
+Gerador de Relatórios em HTML dado um array de Produtos
+
