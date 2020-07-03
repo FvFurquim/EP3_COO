@@ -1,9 +1,7 @@
-package formatacao;
+public class ItalicoDecorator implements Formatador {
+    private Formatador wrappee;
 
-public class ItalicoDecorator implements DataSource {
-    private DataSource wrappee;
-
-    public ItalicoDecorator(DataSource wrappe){
+    public ItalicoDecorator(Formatador wrappe){
         this.wrappee = wrappe;
     }
 
