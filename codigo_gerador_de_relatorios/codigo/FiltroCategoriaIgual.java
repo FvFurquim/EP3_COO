@@ -1,15 +1,13 @@
 public class FiltroCategoriaIgual implements ComportamentoDeFiltro {
 
-	private Object argFiltro = null;
+	private String categoria;
 
-	public FiltroCategoriaIgual(){}
-
-	public FiltroCategoriaIgual(Object argFiltro){
-		this.argFiltro = argFiltro;
+	public FiltroCategoriaIgual(String categoria){
+		this.categoria = categoria;
 	}
 
 	public boolean filtrar(Produto p){
 
-		return (p.getCategoria().equalsIgnoreCase((String)argFiltro)) ;
+		return (p.getCategoria().equalsIgnoreCase(categoria));
 	}
 }

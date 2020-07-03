@@ -1,15 +1,13 @@
 public class FiltroEstoqueMenorOuIgual implements ComportamentoDeFiltro {
 
-	private Object argFiltro = null;
+	private int max;
 
-	public FiltroEstoqueMenorOuIgual(){}
-
-	public FiltroEstoqueMenorOuIgual(Object argFiltro){
-		this.argFiltro = argFiltro;
+	public FiltroEstoqueMenorOuIgual(int max){
+		this.max = max;
 	}
 
 	public boolean filtrar(Produto p){
 
-		return (p.getQtdEstoque() <= (Integer) argFiltro);
+		return (p.getQtdEstoque() <= max);
 	}
 }
