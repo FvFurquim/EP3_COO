@@ -1,14 +1,7 @@
 import java.io.PrintWriter;
 import java.io.IOException;
-import formatacao.*;
 
 public class GeradorDeRelatorios {
-
-	// operador bit a bit "ou" pode ser usado para combinar mais de  
-	// um estilo de formatacao simultaneamente (veja exemplo no main)
-	public static final int FORMATO_PADRAO  = 0b0000;
-	public static final int FORMATO_NEGRITO = 0b0001;
-	public static final int FORMATO_ITALICO = 0b0010;
 
 	private Produto [] produtos;
 	private int format_flags;
@@ -17,7 +10,7 @@ public class GeradorDeRelatorios {
 	private ComportamentoDeCriterio cc = null;
 	private ComportamentoDeFiltro cf = null;
 
-	public GeradorDeRelatorios(Produto [] produtos, int format_flags){
+	public GeradorDeRelatorios(Produto [] produtos){
 
 		this.produtos = new Produto[produtos.length];
 		
@@ -26,7 +19,6 @@ public class GeradorDeRelatorios {
 			this.produtos[i] = produtos[i];
 		}
 
-		this.format_flags = format_flags;
 	}
 
 	// Getters
@@ -99,18 +91,8 @@ public class GeradorDeRelatorios {
 			selecionado = cf.filtrar(p);
 
 			if(selecionado){
-				DataSource frase = new StringDataSourse(p.formataParaImpressao());
+				Formatador frase = new ProdutoFormatador(p);
 				out.print("<li>");
-
-				if((format_flags & FORMATO_ITALICO) > 0){
-
-					frase = new ItalicoDecorator(frase);
-				}
-
-				if((format_flags & FORMATO_NEGRITO) > 0){
-
-					frase = new BoldDecorator(frase);
-				}
 
 				out.println(frase.formata());
 
@@ -172,7 +154,7 @@ public class GeradorDeRelatorios {
 
 		GeradorDeRelatorios gdr;
 
-		gdr = new GeradorDeRelatorios(produtos, FORMATO_PADRAO | FORMATO_NEGRITO |  FORMATO_ITALICO);
+		gdr = new GeradorDeRelatorios(produtos);
 		
 		ComportamentoDeCriterio pc = new CriterioPrecoDecr();
 		ComportamentoDeOrdenacao is = new OrdenacaoQuickSort();

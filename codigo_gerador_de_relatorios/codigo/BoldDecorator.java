@@ -1,9 +1,7 @@
-package formatacao;
+public class BoldDecorator implements Formatador {
+    private Formatador wrappe;
 
-public class BoldDecorator implements DataSource {
-    private DataSource wrappe;
-
-    public BoldDecorator(DataSource wrappe){
+    public BoldDecorator(Formatador wrappe){
         this.wrappe = wrappe;
     }
 
