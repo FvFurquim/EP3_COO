@@ -106,7 +106,7 @@ public class GeradorDeRelatorios {
 			selecionado = cf.filtrar(p);
 
 			if(selecionado){
-				//se não foi adicionado uma formatação no hashmap para o produto, f vai receber FormatacaoPadrao
+				//se não foi adicionado uma formatação no hashmap para o produto p, f vai receber FormatacaoPadrao
 				Formatador f = formatacoes.get(p.getId()) == null ? new FormatacaoPadrao(): formatacoes.get(p.getId());
 
 				out.print("<li>");
