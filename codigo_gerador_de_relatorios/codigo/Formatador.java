@@ -1,3 +1,3 @@
 public interface Formatador {
-    public String formata();
+    public String formatar(Produto p);
 }

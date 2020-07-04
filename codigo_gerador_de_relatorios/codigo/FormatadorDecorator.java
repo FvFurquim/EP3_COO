@@ -1,13 +1,13 @@
 public class FormatadorDecorator implements Formatador {
 
-    private Formatador wrappee;
+    private Formatador formatador;
 
-    public FormatadorDecorator(Formatador wrappe){
-        this.wrappee = wrappe;
+    public FormatadorDecorator(Formatador formatador){
+        this.formatador = formatador;
     }
 
     @Override
-    public String formata() {
-        return wrappee.formata();
+    public String formatar(Produto p) {
+        return formatador.formatar(p);
     }
 }

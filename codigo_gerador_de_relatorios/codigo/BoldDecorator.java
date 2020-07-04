@@ -1,12 +1,11 @@
-public class BoldDecorator implements Formatador {
-    private Formatador wrappe;
+public class BoldDecorator extends FormatadorDecorator {
 
-    public BoldDecorator(Formatador wrappe){
-        this.wrappe = wrappe;
+    public BoldDecorator(Formatador formatador){
+        super(formatador);
     }
 
     @Override
-    public String formata() {
-        return "<span style=\"font-weight:bold\">" + wrappe.formata() + "</span>";
+    public String formatar(Produto p) {
+        return "<span style=\"font-weight:bold\">" + super.formatar(p) + "</span>";
     }
 }

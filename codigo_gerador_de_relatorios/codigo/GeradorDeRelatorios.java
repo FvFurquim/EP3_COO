@@ -1,14 +1,16 @@
+import java.awt.Color;
 import java.io.PrintWriter;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class GeradorDeRelatorios {
 
 	private Produto [] produtos;
-	private int format_flags;
 
 	private ComportamentoDeOrdenacao co = null;
 	private ComportamentoDeCriterio cc = null;
 	private ComportamentoDeFiltro cf = null;
+	private HashMap<Integer, Formatador> formatacoes;
 
 	public GeradorDeRelatorios(Produto [] produtos){
 
@@ -18,6 +20,8 @@ public class GeradorDeRelatorios {
 		
 			this.produtos[i] = produtos[i];
 		}
+
+		this.formatacoes = new HashMap<>();
 
 	}
 
@@ -39,6 +43,10 @@ public class GeradorDeRelatorios {
 		return this.cf;
 	}
 
+	public HashMap<Integer, Formatador> getFormatacoes(){
+		return this.formatacoes;
+	}
+
 	// Setters
 
 	public void setOrdenacao(ComportamentoDeOrdenacao co){
@@ -51,6 +59,13 @@ public class GeradorDeRelatorios {
 
 	public void setFiltro(ComportamentoDeFiltro cf){
 		this.cf = cf;
+	}
+
+	public void setFormatacoes(int id, Formatador f){
+		this.formatacoes.put(id, f);
+	}
+	public void setFormatacoes(Produto p, Formatador f){
+		this.formatacoes.put(p.getId(), f);
 	}
 
 	// Metodos
@@ -91,11 +106,11 @@ public class GeradorDeRelatorios {
 			selecionado = cf.filtrar(p);
 
 			if(selecionado){
-				Formatador frase = new ProdutoFormatador(p);
+				//se não foi adicionado uma formatação no hashmap para o produto p, f vai receber FormatacaoPadrao
+				Formatador f = formatacoes.get(p.getId()) == null ? new FormatacaoPadrao(): formatacoes.get(p.getId());
+
 				out.print("<li>");
-
-				out.println(frase.formata());
-
+				out.println(f.formatar(p));
 				out.println("</li>");
 				count++;
 			}
@@ -158,11 +173,19 @@ public class GeradorDeRelatorios {
 		
 		ComportamentoDeCriterio pc = new CriterioPrecoDecr();
 		ComportamentoDeOrdenacao is = new OrdenacaoQuickSort();
-		ComportamentoDeFiltro fc = new FiltroContem("Pro");
+		ComportamentoDeFiltro fc = new FiltroCategoriaIgual("Informatica");
 
 		gdr.setOrdenacao(is);
 		gdr.setCriterio(pc);
 		gdr.setFiltro(fc);
+
+		Formatador f = new FormatacaoPadrao();
+
+		gdr.setFormatacoes(32, new BoldDecorator(f));
+		gdr.setFormatacoes(23, new BoldDecorator(f));
+		gdr.setFormatacoes(28, new CorDecorator(f, Color.RED));
+		gdr.setFormatacoes(28, new CorDecorator(f, Color.BLUE));
+		gdr.setFormatacoes(7, new CorDecorator(f, Color.RED));
 
 		try{
 			gdr.geraRelatorio("saida.html");
