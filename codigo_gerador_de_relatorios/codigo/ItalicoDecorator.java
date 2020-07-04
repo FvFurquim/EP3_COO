@@ -1,12 +1,11 @@
-public class ItalicoDecorator implements Formatador {
-    private Formatador wrappee;
+public class ItalicoDecorator extends FormatadorDecorator{
 
-    public ItalicoDecorator(Formatador wrappe){
-        this.wrappee = wrappe;
+    public ItalicoDecorator(Formatador formatador){
+        super(formatador);
     }
 
     @Override
-    public String formata() {
-        return "<span style=\"font-style:italic\">" + wrappee.formata() + "</span>";
+    public String formatar(Produto p) {
+        return "<span style=\"font-style:italic\">" + super.formatar(p) + "</span>";
     }
 }
